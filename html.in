@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12th Science Custom Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        /* Custom Result Format Styling */
+        #resultCard {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            background-color: #eafaf1;
+            text-align: left;
+        }
+        .subject-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+        }
+        .total-marks {
+            font-weight: bold;
+            font-size: 18px;
+            color: #d9534f;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .loading {
+            display: none;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>RBSE 12th Science Result</h2>
+    <p>Apna Roll Number darj karein:</p>
+    
+    <input type="text" id="rollNumber" placeholder="E.g., 1234567" required>
+    <br>
+    <button onclick="fetchResult()">Result Dekhein</button>
+    
+    <p class="loading" id="loadingMsg">Data fetch kiya ja raha hai...</p>
+
+    <div id="resultCard">
+        <h3 style="text-align: center; margin-top: 0;" id="studentName">Student Name</h3>
+        
+        <div class="subject-row">
+            <span>Physics:</span>
+            <span id="physicsMarks">-</span>
+        </div>
+        <div class="subject-row">
+            <span>Chemistry:</span>
+            <span id="chemistryMarks">-</span>
+        </div>
+        <div class="subject-row">
+            <span>Mathematics/Bio:</span>
+            <span id="mathMarks">-</span>
+        </div>
+        <div class="subject-row">
+            <span>Hindi:</span>
+            <span id="hindiMarks">-</span>
+        </div>
+        <div class="subject-row">
+            <span>English:</span>
+            <span id="englishMarks">-</span>
+        </div>
+        
+        <div class="total-marks" id="totalResult">
+            Total: - / 500
+        </div>
+    </div>
+</div>
+
+<script>
+    function fetchResult() {
+        const rollNo = document.getElementById("rollNumber").value;
+        const loadingMsg = document.getElementById("loadingMsg");
+        const resultCard = document.getElementById("resultCard");
+
+        if (rollNo === "") {
+            alert("Kripya Roll Number dalein!");
+            return;
+        }
+
+        // Loading dikhayein
+        loadingMsg.style.display = "block";
+        resultCard.style.display = "none";
+
+        /* Yahan par aapka Backend API call hoga.
+           Jaise: fetch(`https://aapka-backend.com/api/result?roll=${rollNo}`)
+           Lekin abhi demo ke liye main ek dummy (nakli) data set kar raha hu.
+        */
+
+        setTimeout(() => {
+            // Fake data for demonstration
+            const demoData = {
+                name: "Rahul Kumar",
+                physics: 85,
+                chemistry: 78,
+                math: 92,
+                hindi: 80,
+                english: 75,
+                total: 410
+            };
+
+            // HTML mein data insert karna
+            document.getElementById("studentName").innerText = demoData.name;
+            document.getElementById("physicsMarks").innerText = demoData.physics;
+            document.getElementById("chemistryMarks").innerText = demoData.chemistry;
+            document.getElementById("mathMarks").innerText = demoData.math;
+            document.getElementById("hindiMarks").innerText = demoData.hindi;
+            document.getElementById("englishMarks").innerText = demoData.english;
+            document.getElementById("totalResult").innerText = `Total: ${demoData.total} / 500`;
+
+            // Loading chhupayein aur Result dikhayein
+            loadingMsg.style.display = "none";
+            resultCard.style.display = "block";
+
+        }, 2000); // 2 second ka fake loading time
+    }
+</script>
+
+</body>
+</html>
